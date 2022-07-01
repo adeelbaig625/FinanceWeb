@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
 
+import './App.css';
+import {useState,useEffect} from 'react'
+import {getToken1,onMessageListener} from './firebase'
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useLocation
+} from "react-router-dom";
+import Login from './Pages/Login/Login';
+import Signup from './Pages/Signup/Signup';
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+  const [show, setShow] = useState(false);
+  const [notification, setNotification] = useState({title: '', body: ''});
+  const [isTokenFound, setTokenFound] = useState(false);
+  getToken1(setTokenFound);
+
+
+    return (
+        <BrowserRouter>
+        <ScrollToTop/>
+        <Routes>
+          <Route path='/' element={<Login/>}/>
+          <Route path='/signup' element={<Signup/>}/>
+        </Routes>
+      </BrowserRouter>
+    );
+  }
+  
+  
+  
+  function ScrollToTop() {
+    const { pathname } = useLocation();
+  
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [pathname]);
+  
+    return null;
+  
 }
 
 export default App;
