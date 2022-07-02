@@ -1,0 +1,41 @@
+.home
+{
+    background-color: #161522;
+    min-height: calc( 100vh - 80px);
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+   align-items: center;
+    width: 100%;
+}
+.home-inner-container
+{
+   color: #fff;
+    width: 90%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   
+}
+.home-inner-right-container>button
+{
+    background-color: transparent;
+    border: 1px solid #fff;
+    padding: 10px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    color: #fff;
+}
+.table-name-div
+{
+    display: flex;
+    height: 60px;
+    align-items: center;
+}
+.table-col
+{
+    min-width: 200px;
+    color: #fff;
+  
+}
