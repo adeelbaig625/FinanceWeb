@@ -56,3 +56,30 @@ export const Signin=(email,password)=>
     })
    
 }
+
+export const AddPayment=(body)=>
+{
+    return new Promise(async(resolve,reject)=>
+    {
+        try
+        {
+            console.log(body)
+            const paymentRef = doc(
+                db,
+                'Users',
+                '4CAcgjJuS1cH0Czj9UMoZLYzEvA3',
+                'Payments'
+              );
+             
+            const addUser = await addDoc(paymentRef, body);
+            
+           resolve()
+        }
+        catch(e)
+        {
+            console.log(e)
+            reject(e)
+        }
+    })
+   
+}
