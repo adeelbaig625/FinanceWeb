@@ -1,4 +1,4 @@
-.Login-body
+.SignUp-body
 {
     background-color: #161522;
     min-height: 100vh;
@@ -7,7 +7,7 @@
     justify-content: center;
     align-items: center;
 }
-.Login-inner-container
+.SignUp-inner-container
 {
     width: 90%;
     display: flex;
@@ -15,26 +15,28 @@
     align-items: center;
     flex-wrap: wrap;
 }
-.right-container
+.SignUp-right-container
 {
     width: 500px;
    
 }
-.right-container>h1
+.SignUp-right-container>h1
 {
     font-size: 36px;
     color: #fff;
+    font-weight: 700;
 }
-.right-container>h2
+.SignUp-right-container>h2
 {
     font-size: 24px;
+    font-weight: 700;
     color: #fff;
 }
-.right-container>img
+.SignUp-right-container>img
 {
     height: 400px;
 }
-.left-container
+.SignUp-left-container
 {
     background-color: #202231;
     display: flex;
@@ -45,14 +47,14 @@
     align-items: center;
     border-radius: 20px;
 }
-.left-inner-container
+.SignUp-left-inner-container
 {
     width: 90%;
     padding: 20px 0px;
  
    
 }
-.left-inner-container>form
+.SignUp-left-inner-container>form
 {
     display: flex;
     width: 100%;
@@ -60,7 +62,7 @@
     align-items: center;
     flex-direction: column;
 }
-.left-inner-container>form>input
+.SignUp-left-inner-container>form>input
 {
 padding: 10px;
 width: 100%;
@@ -73,19 +75,27 @@ font-size: 18px;
 border-radius: 8px;
    
 }
-.left-inner-container>h1
+.SignUp-left-inner-container>h1
 {
     font-size: 24px;
+    font-weight: 700;
     margin: 20px 0px;
     color: #fff;
     text-align: center;
 }
-.left-inner-container>form>button
+.SignUp-left-inner-container>form>p
+{
+    font-size: 16px;
+    color: #fff;
+    font-weight: 500;
+}
+.SignUp-left-inner-container>form>button
 {
     cursor: pointer;
     height: 50px;
     border: none;
     margin: 20px 0px;
+    font-weight: 600;
     font-size: 20px;
     border-radius: 8px;
     color: #fff;

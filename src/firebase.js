@@ -1,6 +1,7 @@
 import { initializeApp, } from "firebase/app";
 import {getAuth} from 'firebase/auth'
 import { getMessaging, getToken, onMessage, } from "firebase/messaging";
+import {getFirestore} from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -18,6 +19,7 @@ const firebaseConfig = {
 export const firebaseApp = initializeApp(firebaseConfig);
 const messaging = getMessaging(firebaseApp);
 export const auth = getAuth(firebaseApp);
+export const db = getFirestore(firebaseApp);
 export const getToken1 = (setTokenFound) => {
     return getToken(messaging, {vapidKey: 'BIkkdcCJs-uXRSEe3SHfhhcwc8RuJ_58bS5zAFEzEZDf2leqLbH9sEwvKLPJEwnXx7EHKqaSgGvM1K-rlv2bmNE'}).then((currentToken) => {
       if (currentToken) {

@@ -1,7 +1,6 @@
 import React from 'react'
 import './login.css'
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import {auth} from '../../firebase'
+import { Signin } from '../../DB/FirestoreQueries';
 import {useNavigate} from 'react-router-dom'
 function Login() {
   const [email,setEmail]=React.useState("");
@@ -10,13 +9,10 @@ function Login() {
   const authenticate=(e)=>
   {
     e.preventDefault();
-    signInWithEmailAndPassword(auth,email,password).then(res=>
+    Signin(email,password).then(res=>
       {
-        navigate('/signup')
-      }).catch(err=>
-        {
-          console.log(err)
-        })
+        navigate('/home')
+      })
   }
   return (
     <div className='Login-body'>
@@ -31,9 +27,11 @@ function Login() {
             <h1>Login</h1>
             <form onSubmit={(e)=>authenticate(e)}>
             <input placeholder='Email' type='email' required value={email} onChange={(e)=>setEmail(e.target.value)}/>
-            <input placeholder='Password' type='password' required value={password} onChange={(e)=>setPassword(e.target.value)}/>
+            <input placeholder='Password' type='password' required value={password} onChange={(e)=>setPassword(e.target.value)}  autoComplete="new-password"/>
             <button type='submit'>Log in</button>
+            <p>Don't have account? <span onClick={()=> navigate('/signup')} style={{textDecoration:'underline',cursor:'pointer'}}>Sign up</span></p>
             </form>
+           
           </div>
         </div>
       </div>
