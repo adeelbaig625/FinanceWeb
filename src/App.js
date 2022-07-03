@@ -12,6 +12,7 @@ import Login from './Pages/Login/Login';
 import Signup from './Pages/Signup/Signup';
 import Home from './Pages/Home/Home';
 import AddPayment from './Pages/AddPayment/AddPayment';
+import EditPayment from './Pages/EditPayment/EditPayment';
 function App() {
 
   const [show, setShow] = useState(false);
@@ -28,6 +29,7 @@ function App() {
           <Route path='/signup' element={<Signup/>}/>
           <Route path='/home' element={<Home/>}/>
           <Route path='/addpayment' element={<AddPayment/>}/>
+          <Route path='/editpayment' element={<EditPayment/>}/>
         </Routes>
       </BrowserRouter>
     );

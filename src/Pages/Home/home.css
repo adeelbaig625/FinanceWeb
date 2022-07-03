@@ -27,15 +27,75 @@
     cursor: pointer;
     color: #fff;
 }
+.payment-table
+{
+    margin: 20px 0px;
+    background-color: #202231;
+    padding: 20px;
+    width: 90%;
+    overflow-x: scroll;
+    display: flex;
+  
+    flex-direction: column;
+    border-radius: 10px;
+}
+.payment-table::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .payment-table {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
 .table-name-div
 {
     display: flex;
     height: 60px;
+    justify-content: space-between;
     align-items: center;
 }
 .table-col
 {
-    min-width: 200px;
+    min-width: 160px;
+    display: flex;
+    text-align: center;
     color: #fff;
   
+}
+.table-data-div
+{
+    justify-content: space-between;
+    display: flex;
+    margin: 10px 0px;
+    align-items: center;
+}
+.table-col>img
+{
+    height: 35px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.table-switch-btn
+{
+    border: 1px solid #fff;
+    display: flex;
+    
+    height: 40px;
+   
+    align-items: center;
+}
+.table-switch-btn>p
+{
+    width: 80px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: center;
+   
+}
+.table-switch-btn>.active
+{
+    background: linear-gradient(90deg, #5AFF6A 0%, #1279C0 100%);
 }

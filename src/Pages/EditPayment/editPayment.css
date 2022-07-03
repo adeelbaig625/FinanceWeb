@@ -1,0 +1,61 @@
+.EditPayment
+{
+    background-color: #161522;
+    min-height: calc( 100vh - 80px);
+    margin-top: 80px;
+    display: flex;
+    color: #fff;
+    flex-direction: column;
+   align-items: center;
+    width: 100%;
+}
+.EditPayment-Container
+{
+    
+        background-color: #202231;
+        display: flex;
+        width: 500px;
+        padding: 20px;
+       
+        justify-content: center;
+        align-items: center;
+        border-radius: 20px;
+   
+}
+.EditPayment>h1
+{
+    margin: 40px 0px;
+}
+.EditPayment-Container>form
+{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.EditPayment-Container>form>input
+{
+    padding: 10px;
+    width: 100%;
+    background-color: #161522;
+    border: none;
+    height: 50px;
+    margin: 5px 0px;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 8px;
+}
+.EditPayment-Container>form>button
+{
+    cursor: pointer;
+    height: 50px;
+    border: none;
+    margin: 20px 0px;
+    font-size: 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    color: #fff;
+    width: 100%;
+    background: linear-gradient(90deg, #5AFF6A 0%, #1279C0 100%);
+}

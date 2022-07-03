@@ -6,7 +6,9 @@ import {
     collection,
     where,
     addDoc,
-    setDoc
+    setDoc,
+    updateDoc,
+    getDoc
   } from "firebase/firestore";
 import {db} from '../firebase'
 import { signInWithEmailAndPassword,createUserWithEmailAndPassword } from 'firebase/auth'
@@ -63,21 +65,54 @@ export const AddPayment=(body)=>
     {
         try
         {
-            console.log(body)
-            const paymentRef = doc(
-                db,
-                'Users',
-                '4CAcgjJuS1cH0Czj9UMoZLYzEvA3',
-                'Payments'
-              );
-             
-            const addUser = await addDoc(paymentRef, body);
-            
+            const docRef = doc(db, "Users", '4CAcgjJuS1cH0Czj9UMoZLYzEvA3');
+            const colRef = collection(docRef, "Payments") 
+            const addUser = await addDoc(colRef, {...body,status:false,isDelete:false});
            resolve()
         }
         catch(e)
         {
-            console.log(e)
+            reject(e)
+        }
+    })
+   
+}
+
+
+
+
+export const UpdatePayment=(paymentId,body)=>
+{
+    console.log(body)
+    return new Promise(async(resolve,reject)=>
+    {
+        try
+        {
+            const  docRef   = doc(db, "Users", '4CAcgjJuS1cH0Czj9UMoZLYzEvA3','Payments',paymentId);
+            const addUser = await updateDoc(docRef, body);
+           resolve()
+        }
+        catch(e)
+        {
+            reject(e)
+        }
+    })
+   
+}
+
+export const GetSinglePayment=(paymentId)=>
+{
+    return new Promise(async(resolve,reject)=>
+    {
+        try
+        {
+            const  docRef   = doc(db, "Users", '4CAcgjJuS1cH0Czj9UMoZLYzEvA3','Payments',paymentId);
+          
+            const docSnap  = await getDoc(docRef);
+           resolve(docSnap.data())
+        }
+        catch(e)
+        {
             reject(e)
         }
     })
