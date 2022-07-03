@@ -48,7 +48,7 @@ function Home() {
         <div className='home-inner-container'>
             <h2>Payments</h2>
             <div className='home-inner-right-container'>
-            <button onClick={()=>navigate('/home/addpayment')}>
+            <button onClick={()=>navigate('/addpayment')}>
                 Add Payment
             </button>
            
@@ -103,7 +103,7 @@ function Home() {
                        
                 </div>
                 <div className='table-col'>
-                       <img src='/assets/edit.png' onClick={()=>navigate(`/home/editpayment/${d.id}`)}/>
+                       <img src='/assets/edit.png' onClick={()=>navigate(`/editpayment/${d.id}`)}/>
                        <img src='/assets/remove.png' onClick={()=>deletePayment(d.id)}/>
                 </div>
             </div>

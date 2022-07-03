@@ -133,6 +133,7 @@ border-radius: 8px;
 @media screen and (max-width: 800px) {
   .Login-inner-container
   {
+    margin: 20px 0px;
     justify-content: center;
   }
 

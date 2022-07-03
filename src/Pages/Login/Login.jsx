@@ -7,14 +7,19 @@ function Login() {
   const [email,setEmail]=React.useState("");
   const navigate=useNavigate()
   const [password,setPassword]=React.useState("");
+  const [loader,setLoader]=React.useState(false)
+
   const authenticate=(e)=>
   {
     e.preventDefault();
-
+    setLoader(true)
     Signin(email,password).then(res=>
       {
         navigate('/home', { replace: true })
-      })
+      }).catch(err=>
+        {
+          setLoader(false)
+        })
   }
   React.useEffect(()=>
   {
@@ -44,8 +49,8 @@ function Login() {
             <form onSubmit={(e)=>authenticate(e)}>
             <input placeholder='Email' type='email' required value={email} onChange={(e)=>setEmail(e.target.value)}/>
             <input placeholder='Password' type='password' required value={password} onChange={(e)=>setPassword(e.target.value)}  autoComplete="new-password"/>
-            <button type='submit'>Log in</button>
-            <p>Don't have account? <span onClick={()=> navigate('/signup')} style={{textDecoration:'underline',cursor:'pointer'}}>Sign up</span></p>
+            {!loader && <button type='submit'>Log in</button>}
+            {!loader &&<p>Don't have account? <span onClick={()=> navigate('/signup')} style={{textDecoration:'underline',cursor:'pointer'}}>Sign up</span></p>}
             </form>
            
           </div>

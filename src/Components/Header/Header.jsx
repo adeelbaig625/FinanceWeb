@@ -2,12 +2,15 @@ import React from 'react'
 import './header.css'
 import {useNavigate} from 'react-router-dom'
 import {Logout} from '../../DB/FirestoreQueries'
+import {getAuth,signOut } from 'firebase/auth'
 function Header() {
   const navigate=useNavigate()
   const onLogout=()=>
   {
-    Logout().then(res=>
+    const auth=getAuth()
+    Logout().then(async res=>
       {
+        const signoutref=await signOut(auth)
         navigate('/',{replace:true})
       })
   }

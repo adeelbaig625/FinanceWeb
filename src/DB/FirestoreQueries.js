@@ -22,22 +22,21 @@ export const Signup=(name,email,password)=>
 {
     return new Promise(async(resolve,reject)=>
     {
+       
         try
         {
-            const token=await getToken1()
+            
             const SignupAuth=await createUserWithEmailAndPassword(auth,email,password)
             const user = SignupAuth.user;
             console.log(user.uid)
             const body={
                 name:name,
                 email:email,
-                password:password,
                 uid:user.uid,
-                token:[token?token:'']
+                token:[]  
             }
             const addUser = await setDoc(doc(db, 'Users', user.uid), body);
-          
-            const SignInAuth=await  signInWithEmailAndPassword(auth,email,password)
+            const signinRef=await Signin(email,password)
             resolve()
         }
         catch(e)
@@ -45,8 +44,6 @@ export const Signup=(name,email,password)=>
             console.log(e)
             reject(e)
         }
-          
-        
         })
 }
 
@@ -54,9 +51,10 @@ export const Signin=(email,password)=>
 {
     return new Promise(async(resolve,reject)=>
     {
+        const token=await getToken1()
         try
         {
-            const token=await getToken1()
+           
            const SignInAuth=await signInWithEmailAndPassword(auth,email,password)
         
          const authref =await getAuth();
@@ -64,7 +62,11 @@ export const Signin=(email,password)=>
         if (user) {
             const uid = user.uid;
             const  docRef   = doc(db, "Users", uid);
-            const addUser = await updateDoc(docRef, {token:arrayUnion(token)});
+            if(token)
+            {
+                const addUser = await updateDoc(docRef, {token:arrayUnion(token)});
+            }
+            
                resolve()
         } 
 });
@@ -73,6 +75,7 @@ export const Signin=(email,password)=>
         }
         catch(e)
         {
+            console.log(e)
             reject(e)
         }
     })
@@ -118,10 +121,13 @@ export const UpdatePayment=(paymentId,body)=>
         {
             const authref =  getAuth();
             onAuthStateChanged(authref, async(user) => {
-           
+           if(user)
+           {
             const  docRef   = doc(db, "Users",user.uid,'Payments',paymentId);
             const addUser = await updateDoc(docRef, body);
            resolve()
+           }
+          
             })
         }
         catch(e)
@@ -141,12 +147,14 @@ export const GetSinglePayment=(paymentId)=>
         {
             const authref =  getAuth();
             onAuthStateChanged(authref, async(user) => {
-                
+                if(user)
+            { 
             const  docRef   = doc(db, "Users", user.uid,'Payments',paymentId);
           
             const docSnap  = await getDoc(docRef);
             console.log(docSnap.data())
            resolve(docSnap.data())
+            }
         })
         }
         catch(e)
@@ -163,20 +171,25 @@ export const Logout=()=>
     {
         const auth = getAuth();
         onAuthStateChanged(auth, async(user) => {
-            try{
-                const token=await getToken1()
-                console.log(token)
-                const deleteTokenRef=await deleteToken(messaging);
-                        const  docRef   = doc(db, "Users", user.uid);
-            const DeleteTokenUser = await updateDoc(docRef, {token:arrayRemove(token.toString())});
-          const signoutref=await  signOut(auth)
-          resolve()
-            }
-            catch(e)
+            if(user)
             {
-                    console.log(e)
-                    reject(e)
+                const token=await getToken1()
+                try{
+                            const  docRef   = doc(db, "Users", user.uid);
+                            if(token)
+                            {
+                                const DeleteTokenUser = await updateDoc(docRef, {token:arrayRemove(token)});
+                            }
+              resolve()
+                }
+                catch(e)
+                {
+                        console.log(e)
+                        reject(e)
+                }
             }
+            
+          
         })
     })
   

@@ -7,15 +7,19 @@ function Signup() {
   const [email,setEmail]=React.useState("");
   const [name,setName]=React.useState("");
   const [password,setPassword]=React.useState("");
+  const [loader,setLoader]=React.useState(false)
   const authenticate=(e)=>
   {
     e.preventDefault();
+    setLoader(true)
     SignupQuery(name,email,password).then(res=>
       {
         navigate('/home')
+      
       }).catch(err=>
         {
           console.log(err)
+          setLoader(false)
         })
       }
 
@@ -34,8 +38,8 @@ function Signup() {
             <input placeholder='Name' type='text' required value={name} onChange={(e)=>setName(e.target.value)} />
             <input placeholder='Email' type='email' required value={email} onChange={(e)=>setEmail(e.target.value)} />
             <input placeholder='Password' type='password' required value={password} onChange={(e)=>setPassword(e.target.value)} autoComplete="new-password"/>
-            <button type='submit'>Sign up</button>
-            <p>Already have account? <span onClick={()=> navigate('/')} style={{textDecoration:'underline',cursor:'pointer'}}>Sign in</span></p>
+            {!loader && <button type='submit'>Sign up</button>}
+            {!loader && <p>Already have account? <span onClick={()=> navigate('/')} style={{textDecoration:'underline',cursor:'pointer'}}>Sign in</span></p>}
             </form>
           </div>
         </div>

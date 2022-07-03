@@ -2,12 +2,14 @@ import React from 'react'
 import Header from '../../Components/Header/Header'
 import './addpayment.css'
 import {AddPayment as AddPaymentFirestore} from '../../DB/FirestoreQueries'
+import {useNavigate} from 'react-router-dom'
 function AddPayment() {
     const [title,setTitle]=React.useState('')
     const [description,setDescription]=React.useState('')
     const [amount,setAmount]=React.useState('')
     const [duedate,setDueDate]=React.useState('')
     const[loader,setLoader]=React.useState(false)
+    const navigate=useNavigate()
     const add=async(e)=>
     {
         e.preventDefault()
@@ -18,6 +20,7 @@ function AddPayment() {
          setDescription('')
          setAmount('')
          setDueDate('')
+         navigate('/home',{replace:true})
         }
         catch(e)
         {
