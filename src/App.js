@@ -1,29 +1,27 @@
 
 import './App.css';
-import {useState,useEffect} from 'react'
+import React, {useState,useEffect} from 'react'
 import {getToken1,onMessageListener} from './firebase'
 import {
   BrowserRouter,
   Routes,
   Route,
-  useLocation
+  useLocation,
+  useNavigate
 } from "react-router-dom";
 import Login from './Pages/Login/Login';
 import Signup from './Pages/Signup/Signup';
 import Home from './Pages/Home/Home';
+import { getAuth ,onAuthStateChanged} from 'firebase/auth'
 import AddPayment from './Pages/AddPayment/AddPayment';
 import EditPayment from './Pages/EditPayment/EditPayment';
 function App() {
-
-  const [show, setShow] = useState(false);
-  const [notification, setNotification] = useState({title: '', body: ''});
-  const [isTokenFound, setTokenFound] = useState(false);
-  getToken1(setTokenFound);
+  const { pathname } = useLocation()
+  const navigate=useNavigate()
 
 
     return (
-        <BrowserRouter>
-        <ScrollToTop/>
+       
         <Routes>
           <Route path='/' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>}/>
@@ -31,21 +29,12 @@ function App() {
           <Route path='/addpayment' element={<AddPayment/>}/>
           <Route path='/editpayment/:paymentid' element={<EditPayment/>}/>
         </Routes>
-      </BrowserRouter>
+    
     );
   }
   
   
   
-  function ScrollToTop() {
-    const { pathname } = useLocation();
-  
-    useEffect(() => {
-      window.scrollTo(0, 0);
-    }, [pathname]);
-  
-    return null;
-  
-}
+
 
 export default App;

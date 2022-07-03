@@ -17,7 +17,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 export const firebaseApp = initializeApp(firebaseConfig);
-const messaging = getMessaging(firebaseApp);
+export const messaging = getMessaging(firebaseApp);
 export const auth = getAuth(firebaseApp);
 export const db = getFirestore(firebaseApp);
 export const getToken1 = async() => {

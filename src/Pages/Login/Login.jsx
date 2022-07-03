@@ -2,6 +2,7 @@ import React from 'react'
 import './login.css'
 import { Signin } from '../../DB/FirestoreQueries';
 import {useNavigate} from 'react-router-dom'
+import { getAuth ,onAuthStateChanged} from 'firebase/auth'
 function Login() {
   const [email,setEmail]=React.useState("");
   const navigate=useNavigate()
@@ -9,11 +10,26 @@ function Login() {
   const authenticate=(e)=>
   {
     e.preventDefault();
+
     Signin(email,password).then(res=>
       {
-        // navigate('/home', { replace: true })
+        navigate('/home', { replace: true })
       })
   }
+  React.useEffect(()=>
+  {
+    const authref =  getAuth();
+    const unregisterAuthObserver =onAuthStateChanged(authref, async(user) => {
+      if(user)
+      {
+        navigate('/home', { replace: true })
+      }
+    
+            })
+    
+            return () => unregisterAuthObserver()
+  
+  })
   return (
     <div className='Login-body'>
       <div className='Login-inner-container'>

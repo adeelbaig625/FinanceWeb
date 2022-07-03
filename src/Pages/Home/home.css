@@ -80,7 +80,7 @@
 {
     border: 1px solid #fff;
     display: flex;
-    
+    color: #fff;
     height: 40px;
    
     align-items: center;
@@ -99,3 +99,10 @@
 {
     background: linear-gradient(90deg, #5AFF6A 0%, #1279C0 100%);
 }
+
+@media screen and (max-width: 600px) {
+    .table-col
+    {
+        min-width: 100px;
+    }
+    }

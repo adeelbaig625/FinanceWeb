@@ -6,7 +6,10 @@ function Header() {
   const navigate=useNavigate()
   const onLogout=()=>
   {
-    Logout()
+    Logout().then(res=>
+      {
+        navigate('/',{replace:true})
+      })
   }
   return (
     <div className='header'>

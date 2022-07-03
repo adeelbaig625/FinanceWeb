@@ -15,15 +15,19 @@ function Home() {
     {
         const authref =  getAuth();
         const unregisterAuthObserver =onAuthStateChanged(authref, async(user) => {
-                const q = query(collection(db,"Users" ,user.uid,"Payments"), where("isDelete", "==", false))
-                const unsubscribe = onSnapshot(q, (querySnapshot) => {
-                    const payments = [];
-                    querySnapshot.forEach((doc) => {
-                      payments.push({id:doc.id,...doc.data()});
-                    });
-                    setData(payments)
-                  });
-                  return ()=>unsubscribe()     
+                if(user)
+                {
+                        const q = query(collection(db,"Users" ,user.uid,"Payments"), where("isDelete", "==", false))
+                        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+                            const payments = [];
+                            querySnapshot.forEach((doc) => {
+                              payments.push({id:doc.id,...doc.data()});
+                            });
+                            setData(payments)
+                          });
+                          return ()=>unsubscribe()     
+                }
+         
                 })
         
                 return () => unregisterAuthObserver()
@@ -44,7 +48,7 @@ function Home() {
         <div className='home-inner-container'>
             <h2>Payments</h2>
             <div className='home-inner-right-container'>
-            <button onClick={()=>navigate('/addpayment')}>
+            <button onClick={()=>navigate('/home/addpayment')}>
                 Add Payment
             </button>
            
@@ -92,14 +96,14 @@ function Home() {
                 <div className='table-col'>
                         {d.duedate}
                 </div>
-                <div className='table-col'>
+                
                       <div className='table-switch-btn'>
                         <p className={d.status?'':'active'} onClick={()=>updateStatus(d.id,false)}>Not paid</p>
                         <p className={d.status?'active':''} onClick={()=>updateStatus(d.id,true)}>Paid</p>
-                        </div>
+                       
                 </div>
                 <div className='table-col'>
-                       <img src='/assets/edit.png' onClick={()=>navigate(`/editpayment/${d.id}`)}/>
+                       <img src='/assets/edit.png' onClick={()=>navigate(`/home/editpayment/${d.id}`)}/>
                        <img src='/assets/remove.png' onClick={()=>deletePayment(d.id)}/>
                 </div>
             </div>

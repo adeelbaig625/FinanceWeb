@@ -6,6 +6,7 @@ import {GetSinglePayment, UpdatePayment} from '../../DB/FirestoreQueries'
 function EditPayment() {
     const [title,setTitle]=React.useState('')
     let { paymentid } = useParams();
+    const navigate=useNavigate()
     const [description,setDescription]=React.useState('')
     const [amount,setAmount]=React.useState('')
     const [duedate,setDueDate]=React.useState('')
@@ -26,8 +27,13 @@ function EditPayment() {
         e.preventDefault()
         setLoader(true)
         try{
-         const UpdatePaymentref=await UpdatePayment({title:title,description:description,amount:amount,duedate:duedate})
-        window.location.reload()
+
+          console.log(amount)
+         const UpdatePaymentref=await UpdatePayment(paymentid,{title:title,description:description,amount:amount,duedate:duedate}).then(res=>
+          {
+            navigate('/home',{replace:true})
+          })
+        
         }
         catch(e)
         {
