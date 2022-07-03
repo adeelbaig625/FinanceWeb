@@ -8,10 +8,14 @@ import {
     addDoc,
     setDoc,
     updateDoc,
-    getDoc
+    getDoc,
+    arrayUnion,
+    arrayRemove
   } from "firebase/firestore";
 import {db} from '../firebase'
-import { signInWithEmailAndPassword,createUserWithEmailAndPassword } from 'firebase/auth'
+import { deleteToken } from "firebase/messaging";
+import { signInWithEmailAndPassword,createUserWithEmailAndPassword,getAuth ,onAuthStateChanged,signOut } from 'firebase/auth'
+import {getToken1,onMessageListener} from '../firebase'
 import {auth} from '../firebase'
 export const Signup=(name,email,password)=>
 {
@@ -19,6 +23,7 @@ export const Signup=(name,email,password)=>
     {
         try
         {
+            const token=await getToken1()
             const SignupAuth=await createUserWithEmailAndPassword(auth,email,password)
             const user = SignupAuth.user;
             console.log(user.uid)
@@ -26,15 +31,17 @@ export const Signup=(name,email,password)=>
                 name:name,
                 email:email,
                 password:password,
-                uid:user.uid
+                uid:user.uid,
+                token:[token]
             }
             const addUser = await setDoc(doc(db, 'Users', user.uid), body);
-
+          
             const SignInAuth=await  signInWithEmailAndPassword(auth,email,password)
             resolve()
         }
         catch(e)
         {
+            console.log(e)
             reject(e)
         }
           
@@ -48,8 +55,20 @@ export const Signin=(email,password)=>
     {
         try
         {
+            const token=await getToken1()
            const SignInAuth=await signInWithEmailAndPassword(auth,email,password)
-           resolve()
+        
+         const authref =  getAuth();
+        onAuthStateChanged(authref, async(user) => {
+        if (user) {
+            const uid = user.uid;
+            const  docRef   = doc(db, "Users", uid);
+            const addUser = await updateDoc(docRef, {token:arrayUnion(token)});
+               resolve()
+        } 
+});
+        
+        
         }
         catch(e)
         {
@@ -65,10 +84,14 @@ export const AddPayment=(body)=>
     {
         try
         {
-            const docRef = doc(db, "Users", '4CAcgjJuS1cH0Czj9UMoZLYzEvA3');
+            const authref =  getAuth();
+            onAuthStateChanged(authref, async(user) => {
+            const docRef = doc(db, "Users", user.uid);
+            console.log(user.uid)
             const colRef = collection(docRef, "Payments") 
             const addUser = await addDoc(colRef, {...body,status:false,isDelete:false});
            resolve()
+            })
         }
         catch(e)
         {
@@ -83,14 +106,18 @@ export const AddPayment=(body)=>
 
 export const UpdatePayment=(paymentId,body)=>
 {
-    console.log(body)
+  
     return new Promise(async(resolve,reject)=>
     {
         try
         {
-            const  docRef   = doc(db, "Users", '4CAcgjJuS1cH0Czj9UMoZLYzEvA3','Payments',paymentId);
+            const authref =  getAuth();
+            onAuthStateChanged(authref, async(user) => {
+             
+            const  docRef   = doc(db, "Users",user.uid,'Payments',paymentId);
             const addUser = await updateDoc(docRef, body);
            resolve()
+            })
         }
         catch(e)
         {
@@ -106,10 +133,15 @@ export const GetSinglePayment=(paymentId)=>
     {
         try
         {
-            const  docRef   = doc(db, "Users", '4CAcgjJuS1cH0Czj9UMoZLYzEvA3','Payments',paymentId);
+            const authref =  getAuth();
+            onAuthStateChanged(authref, async(user) => {
+                
+            const  docRef   = doc(db, "Users", user.uid,'Payments',paymentId);
           
             const docSnap  = await getDoc(docRef);
+            console.log(docSnap.data())
            resolve(docSnap.data())
+        })
         }
         catch(e)
         {
@@ -117,4 +149,24 @@ export const GetSinglePayment=(paymentId)=>
         }
     })
    
+}
+
+export const Logout=()=>
+{ 
+    const auth = getAuth();
+    onAuthStateChanged(auth, async(user) => {
+        try{
+            const token=await getToken1()
+            const deleteTokenRef=await deleteToken();
+        }
+        catch(e)
+        {
+                console.log(e)
+        }
+     
+    //     const  docRef   = doc(db, "Users", user.uid);
+    //     const DeleteTokenUser = await updateDoc(docRef, {token:arrayRemove(token)});
+    //   const signoutref=await  signOut(auth)
+   
+    })
 }

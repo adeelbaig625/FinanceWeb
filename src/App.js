@@ -29,7 +29,7 @@ function App() {
           <Route path='/signup' element={<Signup/>}/>
           <Route path='/home' element={<Home/>}/>
           <Route path='/addpayment' element={<AddPayment/>}/>
-          <Route path='/editpayment' element={<EditPayment/>}/>
+          <Route path='/editpayment/:paymentid' element={<EditPayment/>}/>
         </Routes>
       </BrowserRouter>
     );

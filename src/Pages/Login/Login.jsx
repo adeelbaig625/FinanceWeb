@@ -11,7 +11,7 @@ function Login() {
     e.preventDefault();
     Signin(email,password).then(res=>
       {
-        navigate('/home', { replace: true })
+        // navigate('/home', { replace: true })
       })
   }
   return (

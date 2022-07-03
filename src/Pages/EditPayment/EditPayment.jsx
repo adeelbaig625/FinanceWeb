@@ -1,16 +1,19 @@
 import React from 'react'
 import Header from '../../Components/Header/Header'
 import './editPayment.css'
+import { useNavigate,useParams } from 'react-router-dom'
 import {GetSinglePayment, UpdatePayment} from '../../DB/FirestoreQueries'
 function EditPayment() {
     const [title,setTitle]=React.useState('')
+    let { paymentid } = useParams();
     const [description,setDescription]=React.useState('')
     const [amount,setAmount]=React.useState('')
     const [duedate,setDueDate]=React.useState('')
     const[loader,setLoader]=React.useState(false)
     React.useEffect(()=>
     {
-        GetSinglePayment().then(res=>
+     
+        GetSinglePayment(paymentid).then(res=>
             {
                setTitle(res.title)
                setAmount(res.amount)

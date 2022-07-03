@@ -3,23 +3,31 @@ import './home.css'
 import { useNavigate } from 'react-router-dom'
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import {db} from '../../firebase'
+import { getAuth ,onAuthStateChanged} from 'firebase/auth'
 import { UpdatePayment } from '../../DB/FirestoreQueries';
 import Header from '../../Components/Header/Header'
 function Home() {
     const navigate=useNavigate()
     const [data,setData]=React.useState([])
-    const q = query(collection(db, "Users","4CAcgjJuS1cH0Czj9UMoZLYzEvA3","Payments"), where("isDelete", "==", false))
    
+
     React.useEffect(()=>
     {
-        const unsubscribe = onSnapshot(q, (querySnapshot) => {
-            const payments = [];
-            querySnapshot.forEach((doc) => {
-              payments.push({id:doc.id,...doc.data()});
-            });
-            setData(payments)
-          });
-          return ()=>unsubscribe()
+        const authref =  getAuth();
+        const unregisterAuthObserver =onAuthStateChanged(authref, async(user) => {
+                const q = query(collection(db,"Users" ,user.uid,"Payments"), where("isDelete", "==", false))
+                const unsubscribe = onSnapshot(q, (querySnapshot) => {
+                    const payments = [];
+                    querySnapshot.forEach((doc) => {
+                      payments.push({id:doc.id,...doc.data()});
+                    });
+                    setData(payments)
+                  });
+                  return ()=>unsubscribe()     
+                })
+        
+                return () => unregisterAuthObserver()
+      
     },[])
     const updateStatus=(id,status)=>
     {
@@ -91,7 +99,7 @@ function Home() {
                         </div>
                 </div>
                 <div className='table-col'>
-                       <img src='/assets/edit.png' />
+                       <img src='/assets/edit.png' onClick={()=>navigate(`/editpayment/${d.id}`)}/>
                        <img src='/assets/remove.png' onClick={()=>deletePayment(d.id)}/>
                 </div>
             </div>

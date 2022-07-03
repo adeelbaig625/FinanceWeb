@@ -12,7 +12,7 @@ function Signup() {
     e.preventDefault();
     SignupQuery(name,email,password).then(res=>
       {
-        
+        navigate('/home')
       }).catch(err=>
         {
           console.log(err)

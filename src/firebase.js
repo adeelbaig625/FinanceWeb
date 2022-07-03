@@ -20,22 +20,16 @@ export const firebaseApp = initializeApp(firebaseConfig);
 const messaging = getMessaging(firebaseApp);
 export const auth = getAuth(firebaseApp);
 export const db = getFirestore(firebaseApp);
-export const getToken1 = (setTokenFound) => {
-    return getToken(messaging, {vapidKey: 'BIkkdcCJs-uXRSEe3SHfhhcwc8RuJ_58bS5zAFEzEZDf2leqLbH9sEwvKLPJEwnXx7EHKqaSgGvM1K-rlv2bmNE'}).then((currentToken) => {
-      if (currentToken) {
-        console.log('current token for client: ', currentToken);
-        setTokenFound(true);
-        // Track the token -> client mapping, by sending to backend server
-        // show on the UI that permission is secured
-      } else {
-        console.log('No registration token available. Request permission to generate one.');
-        setTokenFound(false);
-        // shows on the UI that permission is required 
-      }
-    }).catch((err) => {
-      console.log('An error occurred while retrieving token. ', err);
-      // catch error while creating client token
-    })
+export const getToken1 = async() => {
+  try{
+    const currentToken=await getToken(messaging, {vapidKey: 'BIkkdcCJs-uXRSEe3SHfhhcwc8RuJ_58bS5zAFEzEZDf2leqLbH9sEwvKLPJEwnXx7EHKqaSgGvM1K-rlv2bmNE'})
+    return currentToken
+  }
+  catch(e)
+  {
+    console.log('An error occurred while retrieving token. ', e);
+  }
+ 
 };
 
 export const onMessageListener = () =>
