@@ -27,12 +27,16 @@ function Home() {
                           });
                           return ()=>unsubscribe()     
                 }
+                else
+                {
+                        navigate('/',{replace:true})
+                }
          
                 })
         
                 return () => unregisterAuthObserver()
       
-    },[])
+    })
     const updateStatus=(id,status)=>
     {
         UpdatePayment(id,{status:status})

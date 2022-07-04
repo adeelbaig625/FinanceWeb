@@ -3,6 +3,7 @@ import Header from '../../Components/Header/Header'
 import './addpayment.css'
 import {AddPayment as AddPaymentFirestore} from '../../DB/FirestoreQueries'
 import {useNavigate} from 'react-router-dom'
+import { getAuth ,onAuthStateChanged} from 'firebase/auth'
 function AddPayment() {
     const [title,setTitle]=React.useState('')
     const [description,setDescription]=React.useState('')
@@ -10,6 +11,21 @@ function AddPayment() {
     const [duedate,setDueDate]=React.useState('')
     const[loader,setLoader]=React.useState(false)
     const navigate=useNavigate()
+    React.useEffect(()=>
+    {
+        const authref =  getAuth();
+        const unregisterAuthObserver =onAuthStateChanged(authref, async(user) => {
+                if(!user)
+                {
+                  navigate('/',{replace:true})  
+                }
+                
+         
+                })
+        
+                return () => unregisterAuthObserver()
+      
+    })
     const add=async(e)=>
     {
         e.preventDefault()

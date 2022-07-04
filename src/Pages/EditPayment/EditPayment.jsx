@@ -3,6 +3,7 @@ import Header from '../../Components/Header/Header'
 import './editPayment.css'
 import { useNavigate,useParams } from 'react-router-dom'
 import {GetSinglePayment, UpdatePayment} from '../../DB/FirestoreQueries'
+import { getAuth ,onAuthStateChanged} from 'firebase/auth'
 function EditPayment() {
     const [title,setTitle]=React.useState('')
     let { paymentid } = useParams();
@@ -13,7 +14,24 @@ function EditPayment() {
     const[loader,setLoader]=React.useState(false)
     React.useEffect(()=>
     {
+        const authref =  getAuth();
+        const unregisterAuthObserver =onAuthStateChanged(authref, async(user) => {
+                if(!user)
+                {
+                   
+                
+                        navigate('/',{replace:true})
+                }
+         
+                })
+        
+                return () => unregisterAuthObserver()
+      
+    })
+    React.useEffect(()=>
+    {
      
+      
         GetSinglePayment(paymentid).then(res=>
             {
                setTitle(res.title)
