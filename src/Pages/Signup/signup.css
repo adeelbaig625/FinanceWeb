@@ -1,140 +1,113 @@
-.SignUp-body
-{
-    background-color: #161522;
-    min-height: 100vh;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.SignUp-body {
+  background: linear-gradient(180deg, #7be495 0%, #56c596 100%);
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.SignUp-inner-container
-{
-    width: 90%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
+.SignUp-inner-container {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 }
-.SignUp-right-container
-{
-    width: 500px;
-   
+.SignUp-right-container {
+  width: 500px;
 }
-.SignUp-right-container>h1
-{
-    font-size: 36px;
-    color: #fff;
-    font-weight: 700;
+.SignUp-right-container > h1 {
+  font-size: 36px;
+  color: #397d54;
+  font-weight: 700;
 }
-.SignUp-right-container>h2
-{
-    font-size: 24px;
-    font-weight: 700;
-    color: #fff;
+.SignUp-right-container > h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #397d54;
 }
-.SignUp-right-container>img
-{
-    height: 400px;
+.SignUp-right-container > img {
+  height: 400px;
 }
-.SignUp-left-container
-{
-    background-color: #202231;
-    display: flex;
-    width: 500px;
-    
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px;
+.SignUp-left-container {
+  background-color: #397d54;
+  display: flex;
+  width: 500px;
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
 }
-.SignUp-left-inner-container
-{
-    width: 90%;
-    padding: 20px 0px;
- 
-   
+.SignUp-left-inner-container {
+  width: 90%;
+  padding: 20px 0px;
 }
-.SignUp-left-inner-container>form
-{
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+.SignUp-left-inner-container > form {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
-.SignUp-left-inner-container>form>input
-{
-padding: 10px;
-width: 100%;
-background-color: #161522;
-border: none;
-height: 50px;
-margin: 5px 0px;
-color: #fff;
-font-size: 18px;
-border-radius: 8px;
-   
+.SignUp-left-inner-container > form > input {
+  padding: 10px;
+  width: 100%;
+  background-color: #cbead1;
+  border: none;
+  height: 50px;
+  margin: 5px 0px;
+  color: #397d54;
+  font-weight: 500;
+  font-size: 18px;
+  border-radius: 8px;
 }
-.SignUp-left-inner-container>h1
-{
-    font-size: 24px;
-    font-weight: 700;
-    margin: 20px 0px;
-    color: #fff;
-    text-align: center;
+.SignUp-left-inner-container > h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 20px 0px;
+  color: #fff;
+  text-align: center;
 }
-.SignUp-left-inner-container>form>p
-{
-    font-size: 16px;
-    color: #fff;
-    font-weight: 500;
+.SignUp-left-inner-container > form > p {
+  font-size: 16px;
+  color: #fff;
+  font-weight: 500;
 }
-.SignUp-left-inner-container>form>button
-{
-    cursor: pointer;
-    height: 50px;
-    border: none;
-    margin: 20px 0px;
-    font-weight: 600;
-    font-size: 20px;
-    border-radius: 8px;
-    color: #fff;
-    width: 100%;
-    background: linear-gradient(90deg, #5AFF6A 0%, #1279C0 100%);
+.SignUp-left-inner-container > form > button {
+  cursor: pointer;
+  height: 50px;
+  border: none;
+  margin: 20px 0px;
+  font-weight: 600;
+  font-size: 20px;
+  border-radius: 8px;
+  color: #fff;
+  width: 100%;
+  background: linear-gradient(90deg, #7be495 0%, #56c596 100%);
 }
 @media screen and (max-width: 1200px) {
-    .SignUp-right-container
-    {
-        width: 400px;
-       
-    }
-    .SignUp-right-container
-    {
-        width: 400px;
-       
-    }
+  .SignUp-right-container {
+    width: 400px;
+  }
+  .SignUp-right-container {
+    width: 400px;
+  }
 }
 @media screen and (max-width: 1200px) {
-    .SignUp-right-container
-    {
-        width: 300px;
-       
-    }
-    .SignUp-left-container
-    {
-        width: 400px;
-       
-    }
-    .SignUp-right-container>img
-{
+  .SignUp-right-container {
+    width: 300px;
+  }
+  .SignUp-left-container {
+    width: 400px;
+  }
+  .SignUp-right-container > img {
     height: 300px;
-}
+  }
 }
 @media screen and (max-width: 800px) {
-  .SignUp-inner-container
-  {
+  .SignUp-inner-container {
     margin: 20px 0px;
     justify-content: center;
   }
-
 }

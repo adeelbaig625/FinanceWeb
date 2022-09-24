@@ -1,108 +1,95 @@
-.home
-{
-    background-color: #161522;
-    min-height: calc( 100vh - 80px);
-    margin-top: 80px;
-    display: flex;
-    flex-direction: column;
-   align-items: center;
-    width: 100%;
+.home {
+  background: linear-gradient(180deg, #7be495 0%, #56c596 100%);
+  min-height: calc(100vh - 80px);
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
-.home-inner-container
-{
-   color: #fff;
-    width: 90%;
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-   
+.home-inner-container {
+  color: #397d54;
+  width: 90%;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.home-inner-right-container>button
-{
-    background-color: transparent;
-    border: 1px solid #fff;
-    padding: 10px 20px;
-    margin-left: 10px;
-    cursor: pointer;
-    color: #fff;
+.home-inner-right-container > button {
+  background-color: transparent;
+  border: 1px solid #397d54;
+  padding: 10px 20px;
+  margin-left: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  color: #397d54;
 }
-.payment-table
-{
-    margin: 20px 0px;
-    background-color: #202231;
-    padding: 20px;
-    width: 90%;
-    overflow-x: scroll;
-    display: flex;
-  
-    flex-direction: column;
-    border-radius: 10px;
+.payment-table {
+  margin: 20px 0px;
+  background-color: #397d54;
+  padding: 20px;
+  width: 90%;
+  overflow-x: scroll;
+  display: flex;
+
+  flex-direction: column;
+  border-radius: 10px;
 }
 .payment-table::-webkit-scrollbar {
-    display: none;
-  }
-  
-  /* Hide scrollbar for IE, Edge and Firefox */
-  .payment-table {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-  }
-.table-name-div
-{
-    display: flex;
-    height: 60px;
-    justify-content: space-between;
-    align-items: center;
+  display: none;
 }
-.table-col
-{
-    min-width: 160px;
-    display: flex;
-    text-align: center;
-    color: #fff;
-  
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.payment-table {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
-.table-data-div
-{
-    justify-content: space-between;
-    display: flex;
-    margin: 10px 0px;
-    align-items: center;
+.table-name-div {
+  display: flex;
+  height: 60px;
+  justify-content: space-between;
+  align-items: center;
 }
-.table-col>img
-{
-    height: 35px;
-    cursor: pointer;
-    margin-left: 10px;
+.table-col {
+  min-width: 160px;
+  display: flex;
+  text-align: center;
+  color: #fff;
 }
-.table-switch-btn
-{
-    border: 1px solid #fff;
-    display: flex;
-    color: #fff;
-    height: 40px;
-   
-    align-items: center;
+.table-data-div {
+  justify-content: space-between;
+  display: flex;
+  margin: 10px 0px;
+  align-items: center;
 }
-.table-switch-btn>p
-{
-    width: 80px;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    justify-content: center;
-   
+.table-col > img {
+  height: 35px;
+  cursor: pointer;
+  margin-left: 10px;
 }
-.table-switch-btn>.active
-{
-    background: linear-gradient(90deg, #5AFF6A 0%, #1279C0 100%);
+.table-switch-btn {
+  border: 1px solid #fff;
+  display: flex;
+  color: #fff;
+  height: 40px;
+
+  align-items: center;
+}
+.table-switch-btn > p {
+  width: 80px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  justify-content: center;
+}
+.table-switch-btn > .active {
+  background: linear-gradient(90deg, #5aff6a 0%, #1279c0 100%);
 }
 
 @media screen and (max-width: 600px) {
-    .table-col
-    {
-        min-width: 100px;
-    }
-    }
+  .table-col {
+    min-width: 100px;
+  }
+}
