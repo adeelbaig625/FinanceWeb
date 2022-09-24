@@ -69,7 +69,7 @@
   margin-left: 10px;
 }
 .table-switch-btn {
-  border: 1px solid #fff;
+  border: 1px solid #cbead1;
   display: flex;
   color: #fff;
   height: 40px;
@@ -85,7 +85,7 @@
   justify-content: center;
 }
 .table-switch-btn > .active {
-  background: linear-gradient(90deg, #5aff6a 0%, #1279c0 100%);
+  background: #7be495;
 }
 
 @media screen and (max-width: 600px) {
