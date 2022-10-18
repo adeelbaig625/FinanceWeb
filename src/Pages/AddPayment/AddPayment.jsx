@@ -1,69 +1,99 @@
-import React from 'react'
-import Header from '../../Components/Header/Header'
-import './addpayment.css'
-import {AddPayment as AddPaymentFirestore} from '../../DB/FirestoreQueries'
-import {useNavigate} from 'react-router-dom'
-import { getAuth ,onAuthStateChanged} from 'firebase/auth'
+import React from "react";
+import Header from "../../Components/Header/Header";
+import "./addpayment.css";
+import { AddPayment as AddPaymentFirestore } from "../../DB/FirestoreQueries";
+import { useNavigate } from "react-router-dom";
+import { useAddPayment } from "../../query";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 function AddPayment() {
-    const [title,setTitle]=React.useState('')
-    const [description,setDescription]=React.useState('')
-    const [amount,setAmount]=React.useState('')
-    const [duedate,setDueDate]=React.useState('')
-    const[loader,setLoader]=React.useState(false)
-    const navigate=useNavigate()
-    React.useEffect(()=>
-    {
-        const authref =  getAuth();
-        const unregisterAuthObserver =onAuthStateChanged(authref, async(user) => {
-                if(!user)
-                {
-                  navigate('/',{replace:true})  
-                }
-                
-         
-                })
-        
-                return () => unregisterAuthObserver()
-      
-    })
-    const add=async(e)=>
-    {
-        e.preventDefault()
-        setLoader(true)
-        try{
-         const addPayment=await AddPaymentFirestore({title:title,description:description,amount:amount,duedate:duedate})
-         setTitle('')
-         setDescription('')
-         setAmount('')
-         setDueDate('')
-         navigate('/home',{replace:true})
-        }
-        catch(e)
-        {
-            console.log(e)
-        }
-        finally
-        {
-          setLoader(false)
-        }
-     
+  const [title, setTitle] = React.useState("");
+  const [description, setDescription] = React.useState("");
+  const [amount, setAmount] = React.useState("");
+  const [duedate, setDueDate] = React.useState("");
+  const [loader, setLoader] = React.useState(false);
+  const {
+    mutateAsync: createPayment,
+    isLoading: isCreating,
+    reset,
+  } = useAddPayment();
+  const navigate = useNavigate();
+  React.useEffect(() => {
+    const authref = getAuth();
+    const unregisterAuthObserver = onAuthStateChanged(authref, async (user) => {
+      if (!user) {
+        navigate("/", { replace: true });
+      }
+    });
+
+    return () => unregisterAuthObserver();
+  });
+  const add = async (e) => {
+    e.preventDefault();
+    setLoader(true);
+    try {
+      const { status } = await createPayment({
+        title: title,
+        description: description,
+        amount: amount,
+        duedate: duedate,
+      });
+      console.log(isCreating);
+      console.log(status);
+      setTitle("");
+      setDescription("");
+      setAmount("");
+      setDueDate("");
+      if (status == 200) {
+        navigate("/home", { replace: true });
+      }
+    } catch (e) {
+      reset();
+      console.log(e);
+    } finally {
+      setLoader(false);
     }
+  };
   return (
-    <div className='AddPayment'>
-        <Header/>
-        <h1>Add Payment</h1>
-        <div className='AddPayment-Container'>
-        <form  onSubmit={(e)=>add(e)}>
-            <input placeholder='Title' type='text' value={title} required onChange={(e)=>setTitle(e.target.value)} />
-            <input placeholder='Description' value={description} type='text' required onChange={(e)=>setDescription(e.target.value)}/>
-            <input placeholder='Amount' value={amount} type='number' required onChange={(e)=>setAmount(e.target.value)} />
-            <input placeholder='Due Date' value={duedate} type='date' required onChange={(e)=>setDueDate(e.target.value)} />
-            <button type='submit' disabled={loader}>Add Payment</button>
-            
-            </form>
-        </div>
+    <div className="AddPayment">
+      <Header />
+      <h1>Add Payment</h1>
+      <div className="AddPayment-Container">
+        <form onSubmit={(e) => add(e)}>
+          <input
+            placeholder="Title"
+            type="text"
+            value={title}
+            required
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <input
+            placeholder="Description"
+            value={description}
+            type="text"
+            required
+            onChange={(e) => setDescription(e.target.value)}
+          />
+          <input
+            placeholder="Amount"
+            value={amount}
+            type="number"
+            required
+            onChange={(e) => setAmount(e.target.value)}
+          />
+          <input
+            placeholder="Due Date"
+            value={duedate}
+            type="date"
+            required
+            onChange={(e) => setDueDate(e.target.value)}
+          />
+          <button type="submit" disabled={loader}>
+            Add Payment
+          </button>
+        </form>
+      </div>
     </div>
-  )
+  );
 }
 
-export default AddPayment
+export default AddPayment;

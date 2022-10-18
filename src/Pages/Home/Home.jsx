@@ -26,8 +26,6 @@ function Home() {
           setData(payments);
         });
         return () => unsubscribe();
-      } else {
-        navigate("/", { replace: true });
       }
     });
 
