@@ -1,7 +1,6 @@
 import React from "react";
-import Header from "../../Components/Header/Header";
+import { MemoizedHeader } from "../../Components/Header/Header";
 import "./addpayment.css";
-import { AddPayment as AddPaymentFirestore } from "../../DB/FirestoreQueries";
 import { useNavigate } from "react-router-dom";
 import { useAddPayment } from "../../query";
 
@@ -46,7 +45,7 @@ function AddPayment() {
   };
   return (
     <div className="AddPayment">
-      <Header />
+      <MemoizedHeader />
       <h1>Add Payment</h1>
       <div className="AddPayment-Container">
         <form onSubmit={(e) => add(e)}>

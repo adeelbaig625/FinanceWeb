@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../../Components/Header/Header";
+import { MemoizedHeader } from "../../Components/Header/Header";
 import "./editPayment.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { GetSinglePayment, UpdatePayment } from "../../DB/FirestoreQueries";
@@ -43,7 +43,7 @@ function EditPayment() {
   };
   return (
     <div className="EditPayment">
-      <Header />
+      <MemoizedHeader />
       <h1>Edit Payment</h1>
       <div className="EditPayment-Container">
         {isLoading ? (

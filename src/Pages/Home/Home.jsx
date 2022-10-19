@@ -5,7 +5,7 @@ import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { UpdatePayment } from "../../DB/FirestoreQueries";
-import Header from "../../Components/Header/Header";
+import { MemoizedHeader } from "../../Components/Header/Header";
 import { useAuth } from "../../Context/AuthContext";
 function Home() {
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ function Home() {
   };
   return (
     <div className="home">
-      <Header />
+      <MemoizedHeader />
       <div className="home-inner-container">
         <h2>Payments</h2>
         <div className="home-inner-right-container">
