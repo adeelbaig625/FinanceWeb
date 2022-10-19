@@ -4,7 +4,7 @@ import "./addpayment.css";
 import { AddPayment as AddPaymentFirestore } from "../../DB/FirestoreQueries";
 import { useNavigate } from "react-router-dom";
 import { useAddPayment } from "../../query";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 function AddPayment() {
   const [title, setTitle] = React.useState("");
   const [description, setDescription] = React.useState("");
@@ -17,16 +17,7 @@ function AddPayment() {
     reset,
   } = useAddPayment();
   const navigate = useNavigate();
-  React.useEffect(() => {
-    const authref = getAuth();
-    const unregisterAuthObserver = onAuthStateChanged(authref, async (user) => {
-      if (!user) {
-        navigate("/", { replace: true });
-      }
-    });
 
-    return () => unregisterAuthObserver();
-  });
   const add = async (e) => {
     e.preventDefault();
     setLoader(true);

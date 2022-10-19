@@ -6,30 +6,26 @@ import { db } from "../../firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { UpdatePayment } from "../../DB/FirestoreQueries";
 import Header from "../../Components/Header/Header";
+import { useAuth } from "../../Context/AuthContext";
 function Home() {
   const navigate = useNavigate();
   const [data, setData] = React.useState([]);
-
+  const { user } = useAuth();
   React.useEffect(() => {
-    const authref = getAuth();
-    const unregisterAuthObserver = onAuthStateChanged(authref, async (user) => {
-      if (user) {
-        const q = query(
-          collection(db, "Users", user.uid, "Payments"),
-          where("isDelete", "==", false)
-        );
-        const unsubscribe = onSnapshot(q, (querySnapshot) => {
-          const payments = [];
-          querySnapshot.forEach((doc) => {
-            payments.push({ id: doc.id, ...doc.data() });
-          });
-          setData(payments);
+    if (user) {
+      const q = query(
+        collection(db, "Users", user.uid, "Payments"),
+        where("isDelete", "==", false)
+      );
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const payments = [];
+        querySnapshot.forEach((doc) => {
+          payments.push({ id: doc.id, ...doc.data() });
         });
-        return () => unsubscribe();
-      }
-    });
-
-    return () => unregisterAuthObserver();
+        setData(payments);
+      });
+      return () => unsubscribe();
+    }
   });
   const updateStatus = (id, status) => {
     UpdatePayment(id, { status: status });
