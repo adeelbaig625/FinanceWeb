@@ -17,6 +17,7 @@ import AddPayment from "./Pages/AddPayment/AddPayment";
 import EditPayment from "./Pages/EditPayment/EditPayment";
 import { AuthProvider } from "./Context/AuthContext";
 import AuthGuard from "./Guard/AuthGuard";
+import UnprotectedGuard from "./Guard/UnprotectedGuard";
 function App() {
   const queryClient = new QueryClient();
 
@@ -24,32 +25,15 @@ function App() {
     <AuthProvider>
       <QueryClientProvider client={queryClient}>
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route
-            path="/home"
-            element={
-              <AuthGuard>
-                <Home />
-              </AuthGuard>
-            }
-          />
-          <Route
-            path="/addpayment"
-            element={
-              <AuthGuard>
-                <AddPayment />
-              </AuthGuard>
-            }
-          />
-          <Route
-            path="/editpayment/:paymentid"
-            element={
-              <AuthGuard>
-                <EditPayment />
-              </AuthGuard>
-            }
-          />
+          <Route element={<UnprotectedGuard />}>
+            <Route path="/" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+          </Route>
+          <Route element={<AuthGuard />}>
+            <Route path="/home" element={<Home />} />
+            <Route path="/addpayment" element={<AddPayment />} />
+            <Route path="/editpayment" element={<EditPayment />} />
+          </Route>
         </Routes>
         <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
       </QueryClientProvider>

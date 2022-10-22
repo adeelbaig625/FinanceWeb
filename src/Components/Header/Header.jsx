@@ -3,12 +3,13 @@ import "./header.css";
 import { useNavigate } from "react-router-dom";
 import { Logout } from "../../DB/FirestoreQueries";
 import { getAuth, signOut } from "firebase/auth";
+import { useAuth } from "../../Context/AuthContext";
 function Header() {
   const navigate = useNavigate();
+  const auth = useAuth();
+
   const onLogout = () => {
-    const auth = getAuth();
-    Logout().then(async (res) => {
-      const signoutref = await signOut(auth);
+    auth.onLogout().then(async (res) => {
       navigate("/", { replace: true });
     });
   };

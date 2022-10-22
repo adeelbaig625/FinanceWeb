@@ -53,11 +53,11 @@ export const GetSinglePayment = (paymentId) => {
 
           const docSnap = await getDoc(docRef);
           console.log(docSnap.data());
-          resolve(docSnap.data());
+          return resolve(docSnap.data());
         }
       });
     } catch (e) {
-      reject(e);
+      return reject(e);
     }
   });
 };
