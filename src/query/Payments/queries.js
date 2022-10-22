@@ -8,4 +8,6 @@ export const useAddPayment = () => {
 };
 
 export const GetPayment = (id) =>
-  useQuery(PaymentKeys.detail(id), () => GetSinglePayment(id));
+  useQuery(PaymentKeys.detail(id), () => GetSinglePayment(id), {
+    refetchOnWindowFocus: false,
+  });

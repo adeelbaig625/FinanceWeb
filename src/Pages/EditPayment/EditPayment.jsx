@@ -1,42 +1,55 @@
 import React from "react";
 import { MemoizedHeader } from "../../Components/Header/Header";
 import "./editPayment.css";
+import * as Yup from "yup";
 import { useNavigate, useParams } from "react-router-dom";
 import { GetSinglePayment, UpdatePayment } from "../../DB/FirestoreQueries";
-
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
 import { GetPayment } from "../../query";
 function EditPayment() {
-  const [title, setTitle] = React.useState("");
   let { paymentid } = useParams();
   const navigate = useNavigate();
-  const [description, setDescription] = React.useState("");
-  const [amount, setAmount] = React.useState("");
-  const [duedate, setDueDate] = React.useState("");
+
   const [loader, setLoader] = React.useState(false);
   const { isLoading, data } = GetPayment(paymentid);
+  // const RegisterSchema = Yup.object().shape({
+  //   title: Yup.string().required("Title is required"),
+  //   description: Yup.string().required("description is required"),
+  //   amount: Yup.string().required("Amount is required"),
+  //   date: Yup.date().required("Date is required"),
+  // });
+
+  const defaultValues = {
+    title: data?.title,
+    description: data?.description,
+    amount: data?.amount,
+    date: data?.duedate,
+  };
+
+  const { register, handleSubmit, reset } = useForm({
+    defaultValues,
+  });
+
   React.useEffect(() => {
-    GetSinglePayment(paymentid).then((res) => {
-      setTitle(res.title);
-      setAmount(res.amount);
-      setDueDate(res.duedate);
-      setDescription(res.description);
-    });
-  }, []);
+    reset(defaultValues);
+  }, [data?.title]);
+
   const edit = async (e) => {
-    e.preventDefault();
+    console.log(e);
     setLoader(true);
     try {
-      console.log(amount);
       const UpdatePaymentref = await UpdatePayment(paymentid, {
-        title: title,
-        description: description,
-        amount: amount,
-        duedate: duedate,
+        title: e.title,
+        description: e.description,
+        amount: e.amount,
+        duedate: e.date,
       }).then((res) => {
         navigate("/home", { replace: true });
+        console.log(res);
       });
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      console.log(err);
     } finally {
       setLoader(false);
     }
@@ -49,35 +62,15 @@ function EditPayment() {
         {isLoading ? (
           <div></div>
         ) : (
-          <form onSubmit={(e) => edit(e)}>
-            <input
-              placeholder="Title"
-              type="text"
-              value={data?.title}
-              required
-              onChange={(e) => setTitle(e.target.value)}
-            />
+          <form onSubmit={handleSubmit(edit)}>
+            <input placeholder="Title" type="text" {...register("title")} />
             <input
               placeholder="Description"
-              value={data?.title}
               type="text"
-              required
-              onChange={(e) => setDescription(e.target.value)}
+              {...register("description")}
             />
-            <input
-              placeholder="Amount"
-              value={data?.amount}
-              type="number"
-              required
-              onChange={(e) => setAmount(e.target.value)}
-            />
-            <input
-              placeholder="Due Date"
-              value={data?.duedate}
-              type="date"
-              required
-              onChange={(e) => setDueDate(e.target.value)}
-            />
+            <input placeholder="Amount" type="number" {...register("amount")} />
+            <input placeholder="Due Date" type="date" {...register("date")} />
             <button type="submit" disabled={loader}>
               Edit Payment
             </button>
